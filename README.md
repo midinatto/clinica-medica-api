@@ -10,8 +10,3 @@ Sistema backend modular para gerenciamento de uma clínica médica, desenvolvido
 - `clinica-medica-agendamento`: Agendamentos de consultas e exames.
 - `clinica-medica-central`: Módulo comum, com entidades e utilitários compartilhados.
 
-## 🚀 Como rodar
-
-```bash
-mvn clean install
-mvn spring-boot:run -pl clinica-medica-administrativo
