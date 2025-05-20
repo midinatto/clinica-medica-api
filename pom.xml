@@ -14,15 +14,26 @@
   <module>clinica-medica-administrativo</module>
   <module>clinica-medica-atendimento</module>
   <module>clinica-medica-agendamento</module>
+  <module>clinica-medica-central</module>
 </modules>
 
-<properties>
-  <java.version>17</java.version> <!-- Spring Boot 3+ exige Java 17 ou superior -->
-  <spring.boot.version>3.1.0</spring.boot.version>
-</properties>
+  <properties>
+    <java.version>17</java.version>
+    <spring.boot.version>3.1.0</spring.boot.version>
+  </properties>
+
 
   <dependencyManagement>
     <dependencies>
+      <!-- Lombok (gerenciado aqui, usado nos filhos) -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.30</version> <!-- versão estável -->
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- Spring Boot BOM (gerencia dependências do Spring nos filhos) -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
