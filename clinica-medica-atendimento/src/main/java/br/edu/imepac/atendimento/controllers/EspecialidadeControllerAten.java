@@ -7,15 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import br.edu.imepac.dtos.especialidade.EspecialidadeDto;
-import br.edu.imepac.dtos.especialidade.EspecialidadeRequest;
-import br.edu.imepac.services.EspecialidadeService;
-
-import org.springframework.http.HttpStatus;
-
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/especialidades")
