@@ -1,4 +1,4 @@
-package br.edu.imepac.dtos.paciente;
+package br.edu.imepac.central.dtos.paciente;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;

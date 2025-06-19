@@ -1,15 +1,15 @@
 package br.edu.imepac.administrativo.controllers;
 
-import br.edu.imepac.dtos.especialidade.EspecialidadeDto;
-import br.edu.imepac.dtos.especialidade.EspecialidadeRequest;
-import br.edu.imepac.services.EspecialidadeService;
+import br.edu.imepac.central.dtos.especialidade.EspecialidadeDto;
+import br.edu.imepac.central.dtos.especialidade.EspecialidadeRequest;
+import br.edu.imepac.central.services.EspecialidadeService;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/especialidades")
 public class EspecialidadeControllerAdm {
@@ -20,29 +20,38 @@ public class EspecialidadeControllerAdm {
         this.especialidadeService = especialidadeService;
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public EspecialidadeDto addEspecialidade(@RequestBody EspecialidadeRequest especialidadeRequest) {
+    public EspecialidadeDto criarEspecialidade(@RequestBody EspecialidadeRequest especialidadeRequest) {
+        log.info("Criando especialidade - controller: {}", especialidadeRequest);
         return especialidadeService.adicionarEspecialidade(especialidadeRequest);
     }
 
-    @GetMapping(value = "/{id}", produces = "application/json")
-    public EspecialidadeDto getEspecialidadeById(@PathVariable Long id)  {
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public EspecialidadeDto atualizarEspecialidade(@PathVariable Long id, @RequestBody EspecialidadeDto especialidadeDto) {
+        log.info("Atualizar especialidade - controller: {}", especialidadeDto);
+        return especialidadeService.atualizarEspecialidade(id, especialidadeDto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removerEspecialidade(@PathVariable Long id) {
+        log.info("Remover especialidade - controller: {}", id);
+        especialidadeService.removerEspecialidade(id);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public EspecialidadeDto buscarEspecialidadePorId(@PathVariable Long id) {
+        log.info("Buscar especialidade - controller: {}", id);
         return especialidadeService.buscarEspecialidadePorId(id);
     }
 
-    @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-    public EspecialidadeDto updateEspecialidade(@PathVariable Long id, @RequestBody EspecialidadeRequest especialidadeRequest) {
-        return especialidadeService.atualizarEspecialidade(id, especialidadeRequest);
-    }
-
-    @DeleteMapping(value = "/{id}", produces = "application/json")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removerEspecialidade(@PathVariable Long id)  {
-        especialidadeService.removerEspecialidade(id);
-    }
-    @GetMapping(produces = "application/json")
+    @GetMapping("/listar")
+    @ResponseStatus(HttpStatus.OK)
     public List<EspecialidadeDto> listarEspecialidades() {
+        log.info("Listar especialidade - controller");
         return especialidadeService.listarEspecialidades();
     }
 }

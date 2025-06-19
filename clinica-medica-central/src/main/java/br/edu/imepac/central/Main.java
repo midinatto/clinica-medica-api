@@ -1,4 +1,4 @@
-package br.edu.imepac;
+package br.edu.imepac.central;
 
 
 import org.springframework.boot.SpringApplication;

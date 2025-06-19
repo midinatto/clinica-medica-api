@@ -1,4 +1,4 @@
-package br.edu.imepac.dtos.paciente;
+package br.edu.imepac.central.dtos.paciente;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

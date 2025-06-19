@@ -1,7 +1,7 @@
-package br.edu.imepac.repositories;
+package br.edu.imepac.central.repositories;
 
 
-import br.edu.imepac.models.Paciente;
+import br.edu.imepac.central.models.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

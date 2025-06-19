@@ -1,12 +1,14 @@
 package br.edu.imepac.agendamento.controllers;
 
-import br.edu.imepac.dtos.paciente.PacienteDto;
-import br.edu.imepac.dtos.paciente.PacienteRequest;
-import br.edu.imepac.services.PacienteService;
+import br.edu.imepac.central.dtos.paciente.PacienteDto;
+import br.edu.imepac.central.dtos.paciente.PacienteRequest;
+import br.edu.imepac.central.services.PacienteService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+@Slf4j
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteControllerAgen {
@@ -17,31 +19,40 @@ public class PacienteControllerAgen {
             this.pacienteService = pacienteService;
         }
 
-        @PostMapping(consumes = "application/json", produces = "application/json")
-        @ResponseStatus(HttpStatus.CREATED)
-        public PacienteDto addPaciente(@RequestBody PacienteRequest pacienteRequest) {
-            return pacienteService.adicionarPaciente(pacienteRequest);
-        }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public PacienteDto addPaciente(@RequestBody PacienteRequest pacienteRequest) {
+        log.info("Criando paciente - controller: {}", pacienteRequest);
+        return pacienteService.adicionarPaciente(pacienteRequest);
+    }
 
-        @GetMapping(value = "/{id}", produces = "application/json")
-        public PacienteDto getPacienteById(@PathVariable Long id)  {
-            return pacienteService.buscarPacientePorId(id);
-        }
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PacienteDto getPacienteById(@PathVariable Long id)  {
+        log.info("Buscar paciente - controller: {}", id);
+        return pacienteService.buscarPacientePorId(id);
+    }
 
-        @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-        public PacienteDto updatePaciente(@PathVariable Long id, @RequestBody PacienteRequest pacienteRequest) {
-            return pacienteService.atualizarPaciente(id, pacienteRequest);
-        }
 
-        @DeleteMapping(value = "/{id}", produces = "application/json")
-        @ResponseStatus(HttpStatus.NO_CONTENT)
-        public void removerPaciente(@PathVariable Long id)  {
-            pacienteService.removerPaciente(id);
-        }
-        @GetMapping(produces = "application/json")
-        public List<PacienteDto> listarPaciente() {
-            return pacienteService.listarPaciente();
-        }
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PacienteDto updatePaciente(@PathVariable Long id, @RequestBody PacienteDto pacienteDto) {
+        log.info("Atualizar paciente - controller: {}", pacienteDto);
+        return pacienteService.atualizarPaciente(id, pacienteDto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removerPaciente(@PathVariable Long id)  {
+        log.info("Remover paciente - controller: {}", id);
+        pacienteService.removerPaciente(id);
+    }
+    @GetMapping("/listar")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PacienteDto> listarPaciente() {
+        log.info("Listar paciente - controller");
+        return pacienteService.listarPaciente();
+    }
     }
 
 
