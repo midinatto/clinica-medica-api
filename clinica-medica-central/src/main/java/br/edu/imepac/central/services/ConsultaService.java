@@ -3,7 +3,7 @@ package br.edu.imepac.central.services;
 import br.edu.imepac.central.dtos.consulta.ConsultaDto;
 import br.edu.imepac.central.dtos.consulta.ConsultaRequest;
 import br.edu.imepac.central.models.Consulta;
-import br.edu.imepac.repositories.ConsultaRepository;
+import br.edu.imepac.central.repositories.ConsultaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;

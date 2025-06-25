@@ -19,8 +19,5 @@ public class ConsultaDto {
     private boolean eRetorno;
     private Boolean EstaAtiva;
 
-    public ConsultaDto(long id, String dataHorario, String sintomas) {
-    }
-
 
 }

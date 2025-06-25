@@ -28,6 +28,4 @@ public class PacienteDto {
         private String email;
         private LocalDate dataNascimento;
 
-    public PacienteDto(int id, String nome, int idade, char sexo, String cpf, String rua, String numero, String complemento, String bairro, String cidade, String estado, String contato, String email, LocalDate dataNascimento, Object o) {
-    }
 }
