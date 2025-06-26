@@ -33,6 +33,12 @@
         <scope>provided</scope>
       </dependency>
 
+      <dependency>
+        <groupId>org.modelmapper</groupId>
+        <artifactId>modelmapper</artifactId>
+        <version>3.1.1</version>
+      </dependency>
+
       <!-- Spring Boot BOM (gerencia dependências do Spring nos filhos) -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -41,6 +47,7 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
     </dependencies>
   </dependencyManagement>
 
