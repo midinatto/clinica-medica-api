@@ -2,8 +2,8 @@ package br.edu.imepac.central.services;
 
 import br.edu.imepac.central.dtos.perfil.PerfilDto;
 import br.edu.imepac.central.dtos.perfil.PerfilRequest;
-import br.edu.imepac.models.Perfil;
-import br.edu.imepac.repositories.PerfilRepository;
+import br.edu.imepac.central.models.Perfil;
+import br.edu.imepac.central.repositories.PerfilRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

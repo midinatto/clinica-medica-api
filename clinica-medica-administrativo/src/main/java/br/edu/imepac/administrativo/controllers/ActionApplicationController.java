@@ -1,6 +1,6 @@
 package br.edu.imepac.administrativo.controllers;
 
-import br.edu.imepac.comum.services.ActionsApplicationService;
+import br.edu.imepac.central.services.ActionsApplicationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/actions-application")
-public class ActionsApplicationController {
+public class ActionApplicationController {
 
     private final ActionsApplicationService actionsApplicationService;
 

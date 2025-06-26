@@ -1,6 +1,6 @@
 package br.edu.imepac.central.services;
 
-import br.edu.imepac.comum.models.Perfil;
+import br.edu.imepac.central.models.Perfil;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;

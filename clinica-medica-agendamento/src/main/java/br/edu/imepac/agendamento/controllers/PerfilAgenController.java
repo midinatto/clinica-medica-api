@@ -1,19 +1,17 @@
-package br.edu.imepac.atendimento.controllers;
+package br.edu.imepac.agendamento.controllers;
+
+import br.edu.imepac.central.dtos.perfil.PerfilDto;
+import br.edu.imepac.central.dtos.perfil.PerfilRequest;
 import br.edu.imepac.central.models.Perfil;
 import br.edu.imepac.central.services.PerfilService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import br.edu.imepac.central.dtos.perfil.PerfilDto;
-import br.edu.imepac.central.dtos.perfil.PerfilRequest;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/Perfils")
-public class PerfilAtenController {
-
+public class PerfilAgenController {
     private final PerfilService perfilService;
-    public PerfilAtenController(PerfilService perfilService) {this.perfilService = perfilService;}
+    public PerfilAgenController(PerfilService perfilService) {this.perfilService = perfilService;}
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
@@ -44,4 +42,3 @@ public class PerfilAtenController {
         return perfilService.verificarAutorizacao(usuario, senha, acao);
     }
 }
-
