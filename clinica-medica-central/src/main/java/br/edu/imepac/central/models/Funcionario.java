@@ -1,19 +1,41 @@
 package br.edu.imepac.central.models;
 
+import br.edu.imepac.central.domain.EnumTipoFuncionario;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "funcionarios")
 public class Funcionario {
-    private long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String usuario;
-    private int senha;
+    private String senha;
     private String nome;
-    private int idade;
-    private String sexo;
+    private Integer idade;
+    private char sexo;
+
     private String cpf;
     private String rua;
-    private int numero;
+    private String numero;
     private String complemento;
     private String bairro;
     private String cidade;
     private String estado;
     private String contato;
     private String email;
+    private LocalDate dataNascimento;
+
+    @Enumerated(EnumType.STRING)
+    private EnumTipoFuncionario tipoFuncionario;
 }
