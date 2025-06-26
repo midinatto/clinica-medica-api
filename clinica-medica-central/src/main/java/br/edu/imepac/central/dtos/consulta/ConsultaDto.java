@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude.Include.NON_NULL
+@JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class ConsultaDto {
     private long id;

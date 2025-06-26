@@ -7,19 +7,16 @@ import br.edu.imepac.central.models.Paciente;
 import br.edu.imepac.central.repositories.PacienteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
-import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class PacienteService {
         private final ModelMapper modelMapper;
         private final PacienteRepository pacienteRepository;
         public PacienteService(ModelMapper modelMapper, PacienteRepository pacienteRepository) {
-            this.modelMapper = modelMapper;
+                this.modelMapper = modelMapper;
             this.pacienteRepository = pacienteRepository;
         }
 

@@ -4,77 +4,53 @@ import br.edu.imepac.central.dtos.convenio.ConvenioDto;
 import br.edu.imepac.central.dtos.convenio.ConvenioRequest;
 import br.edu.imepac.central.models.Convenio;
 import br.edu.imepac.central.repositories.ConvenioRepository;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
-import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 public class ConvenioService {
+    private final ModelMapper modelMapper;
     private final ConvenioRepository convenioRepository;
 
-    public ConvenioService(ConvenioRepository convenioRepository) {
+    public ConvenioService(ModelMapper modelMapper,ConvenioRepository convenioRepository) {
+        this.modelMapper = modelMapper;
         this.convenioRepository = convenioRepository;
     }
 
     public ConvenioDto adicionarConvenio(ConvenioRequest convenioRequest) {
-        if (convenioRequest.getNome().trim().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O campo nome não pode ser vazio");
-
-        }
-        if (convenioRequest.getDescricao().trim().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Deve haver a descrição do Convenio");
-        }
-
-        Convenio convenio = new Convenio();
-        convenio.setNome(convenioRequest.getNome());
-        convenio.setDescricao(convenioRequest.getDescricao());
-
-        convenioRepository.save(convenio);
-
-        return new ConvenioDto(convenio.getId(),
-                convenio.getNome(),
-                convenio.getDescricao());
-
+        log.info("Cadastro de convenio - service: {}", convenioRequest);
+        Convenio convenio = modelMapper.map(convenioRequest, Convenio.class);
+        convenio = convenioRepository.save(convenio);
+        return modelMapper.map(convenio, ConvenioDto.class);
     }
 
-    public ConvenioDto atualizarEspecialidade(Long id, ConvenioRequest convenioRequest) {
-        Convenio convenio = convenioRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Convenio não encontrado."));
-        if (convenioRequest.getNome().trim().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O campo nome não pode ser vazio");
-
-        } if (convenioRequest.getDescricao().trim().isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Deve haver a descrição do Convenio");
-        }
-
-        convenio.setNome(convenioRequest.getNome());
-        convenio.setDescricao(convenioRequest.getDescricao());
-
-        convenioRepository.save(convenio);
-
-        return new ConvenioDto(convenio.getId(),
-            convenio.getNome(),
-            convenio.getDescricao());
-
+    public ConvenioDto atualizarEspecialidade(Long id, ConvenioDto convenioDto) {
+        log.info("Atualizando convenio com ID: {}", id);
+        Convenio convenioExistente = convenioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Convenio não encontrado com ID: " + id));
+        modelMapper.map(convenioDto, convenioExistente);
+        Convenio convenioAtualizado = convenioRepository.save(convenioExistente);
+        return modelMapper.map(convenioAtualizado, ConvenioDto.class);
     }
     public void removerConvenio (Long id) {
+        log.info("Removendo convenio com ID: {}", id);
         Convenio convenio = convenioRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Convenio não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Convenio não encontrado com ID: " + id));
         convenioRepository.delete(convenio);
     }
     public ConvenioDto buscarConvenioPorId(Long id){
+        log.info("Buscando convenio com ID: {}", id);
         Convenio convenio = convenioRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Convenio não encontrado"));
-        return new ConvenioDto(convenio.getId(), convenio.getNome(), convenio.getDescricao());
+                .orElseThrow(() -> new RuntimeException("Convenio não encontradocom ID: " + id));
+        return modelMapper.map(convenio, ConvenioDto.class);
     }
     public List<ConvenioDto> listarConvenio(){
-       return convenioRepository.findAll().stream()
-               .map(e -> new ConvenioDto(e.getId(), e.getNome(), e.getDescricao()))
-               .collect(Collectors.toList());
-
-
+        log.info("Listando todos os convenios");
+        List<Convenio> convenios = convenioRepository.findAll();
+        return convenios.stream()
+                .map(convenio -> modelMapper.map(convenio, ConvenioDto.class))
+                .toList();
     }
 }

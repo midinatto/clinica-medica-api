@@ -4,86 +4,57 @@ import br.edu.imepac.central.dtos.consulta.ConsultaDto;
 import br.edu.imepac.central.dtos.consulta.ConsultaRequest;
 import br.edu.imepac.central.models.Consulta;
 import br.edu.imepac.central.repositories.ConsultaRepository;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ConsultaService {
     private final ConsultaRepository consultaRepository;
-
-    public ConsultaService(ConsultaRepository consultaRepository) {
+    private final ModelMapper modelMapper;
+    public ConsultaService(ModelMapper modelMapper, ConsultaRepository consultaRepository) {
         this.consultaRepository = consultaRepository;
+        this.modelMapper = modelMapper;
     }
 
     public ConsultaDto adicionarConsulta(ConsultaRequest consultaRequest) {
-        if (consultaRequest.getDataHorario() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O campo Data não pode ser vazio");
-        }
-
-        if (consultaRequest.getSintomas().trim().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O campo de Sintomas não pode estar vazio");
-        }
-        if (!consultaRequest.getEstaAtivo()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Deve ser informado se a consulta está Ativa ou não.");
-        }
-
-        Consulta consulta = new Consulta();
-        consulta.setDataHorario(String.valueOf(consultaRequest.getDataHorario()));
-        consulta.setSintomas(consulta.getSintomas());
-
-        consultaRepository.save(consulta);
-
-        return new ConsultaDto(consulta.getId(),
-                consulta.getDataHorario(),
-                consulta.getSintomas());
+        log.info("Cadastro de consulta - service: {}", consultaRequest);
+        Consulta consulta = modelMapper.map(consultaRequest, Consulta.class);
+        consulta = consultaRepository.save(consulta);
+        return modelMapper.map(consulta, ConsultaDto.class);
     }
 
-    public ConsultaDto atualizarConsulta(ConsultaRequest consultaRequest) {
-        if (consultaRequest.getDataHorario() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O campo Data e Horario não pode ser vazio");
-        }
-
-        if (consultaRequest.getSintomas() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O campo de Sintomas não pode estar vazio");
-        }
-        if (!consultaRequest.getEstaAtivo()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Deve ser informado se a consulta está Ativa ou não.");
-        }
-
-        Consulta consulta = new Consulta();
-        consulta.setDataHorario(String.valueOf(consultaRequest.getDataHorario()));
-        consulta.setSintomas(consulta.getSintomas());
-
-        consultaRepository.save(consulta);
-
-        return new ConsultaDto(consulta.getId(),
-                consulta.getDataHorario(),
-                consulta.getSintomas());
-
+    public ConsultaDto atualizarConsulta(Long id, ConsultaDto consultaDto) {
+        log.info("Atualizando consulta com ID: {}", id);
+        Consulta consultaExistente = consultaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Consulta não encontrado com ID: " + id));
+        modelMapper.map(consultaDto, consultaExistente);
+        Consulta consultaAtualizado = consultaRepository.save(consultaExistente);
+        return modelMapper.map(consultaAtualizado, ConsultaDto.class);
     }
 
     public void removerConsulta(Long id) {
+        log.info("Removendo consulta com ID: {}", id);
         Consulta consulta = consultaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Consulta não encontrada"));
+                .orElseThrow(() -> new RuntimeException("Consulta não encontrado com ID: " + id));
         consultaRepository.delete(consulta);
     }
 
     public ConsultaDto buscarConsultaPorId(Long id) {
+        log.info("Buscando consulta com ID: {}", id);
         Consulta consulta = consultaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Consulta não encontrado"));
-        return new ConsultaDto(consulta.getId(), consulta.getDataHorario(), consulta.getSintomas());
+                .orElseThrow(() -> new RuntimeException("Consulta não encontrado com ID: " + id));
+        return modelMapper.map(consulta, ConsultaDto.class);
     }
 
     public List<ConsultaDto> listarConsulta() {
-        return consultaRepository.findAll().stream()
-                .map(e -> new ConsultaDto(e.getId(), e.getDataHorario(), e.getSintomas()))
-                .collect(Collectors.toList());
-
-
+        log.info("Listando todos as consultas");
+        List<Consulta> consultas = consultaRepository.findAll();
+        return consultas.stream()
+                .map(consulta -> modelMapper.map(consulta, ConsultaDto.class))
+                .toList();
     }
 
 }

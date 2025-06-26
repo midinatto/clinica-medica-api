@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@JsonInclude.Include.NON_NULL
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ConvenioDto {
     private long id;
     private String nome;

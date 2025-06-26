@@ -11,11 +11,11 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/pacientes")
-public class PacienteControllerAdm {
+public class PacienteAdmController {
 
         private final PacienteService pacienteService;
 
-        public  PacienteControllerAdm(PacienteService pacienteService) {
+        public PacienteAdmController(PacienteService pacienteService) {
             this.pacienteService = pacienteService;
         }
 

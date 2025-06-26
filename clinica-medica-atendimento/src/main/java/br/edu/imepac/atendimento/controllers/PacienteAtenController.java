@@ -1,4 +1,4 @@
-package br.edu.imepac.agendamento.controllers;
+package br.edu.imepac.atendimento.controllers;
 
 import br.edu.imepac.central.dtos.paciente.PacienteDto;
 import br.edu.imepac.central.dtos.paciente.PacienteRequest;
@@ -11,11 +11,12 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/pacientes")
-public class PacienteControllerAgen {
+public class PacienteAtenController {
 
-        private final PacienteService pacienteService;
 
-        public  PacienteControllerAgen(PacienteService pacienteService) {
+        private final  PacienteService pacienteService;
+
+        public PacienteAtenController(PacienteService pacienteService) {
             this.pacienteService = pacienteService;
         }
 

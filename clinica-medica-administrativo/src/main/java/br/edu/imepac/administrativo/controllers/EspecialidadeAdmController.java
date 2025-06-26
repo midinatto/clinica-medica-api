@@ -1,8 +1,9 @@
-package br.edu.imepac.agendamento.controllers;
+package br.edu.imepac.administrativo.controllers;
 
 import br.edu.imepac.central.dtos.especialidade.EspecialidadeDto;
 import br.edu.imepac.central.dtos.especialidade.EspecialidadeRequest;
 import br.edu.imepac.central.services.EspecialidadeService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +12,13 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/especialidades")
-public class EspecialidadeControllerAgen {
+public class EspecialidadeAdmController {
 
-        private final EspecialidadeService especialidadeService;
-        public EspecialidadeControllerAgen(EspecialidadeService especialidadeService) {
-            this.especialidadeService = especialidadeService;
-        }
+    private final EspecialidadeService especialidadeService;
+
+    public EspecialidadeAdmController(EspecialidadeService especialidadeService) {
+        this.especialidadeService = especialidadeService;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -53,3 +55,4 @@ public class EspecialidadeControllerAgen {
         return especialidadeService.listarEspecialidades();
     }
 }
+

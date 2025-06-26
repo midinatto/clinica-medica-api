@@ -1,4 +1,4 @@
-package br.edu.imepac.atendimento.controllers;
+package br.edu.imepac.agendamento.controllers;
 
 import br.edu.imepac.central.dtos.especialidade.EspecialidadeDto;
 import br.edu.imepac.central.dtos.especialidade.EspecialidadeRequest;
@@ -11,11 +11,10 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/especialidades")
-public class EspecialidadeControllerAten {
+public class EspecialidadeAgenController {
 
         private final EspecialidadeService especialidadeService;
-
-        public EspecialidadeControllerAten(EspecialidadeService especialidadeService) {
+        public EspecialidadeAgenController(EspecialidadeService especialidadeService) {
             this.especialidadeService = especialidadeService;
         }
 
@@ -54,5 +53,3 @@ public class EspecialidadeControllerAten {
         return especialidadeService.listarEspecialidades();
     }
 }
-
-
