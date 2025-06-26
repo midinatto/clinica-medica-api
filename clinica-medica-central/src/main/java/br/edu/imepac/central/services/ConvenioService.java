@@ -26,7 +26,7 @@ public class ConvenioService {
         return modelMapper.map(convenio, ConvenioDto.class);
     }
 
-    public ConvenioDto atualizarEspecialidade(Long id, ConvenioDto convenioDto) {
+    public ConvenioDto atualizarConvenio(Long id, ConvenioDto convenioDto) {
         log.info("Atualizando convenio com ID: {}", id);
         Convenio convenioExistente = convenioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Convenio não encontrado com ID: " + id));

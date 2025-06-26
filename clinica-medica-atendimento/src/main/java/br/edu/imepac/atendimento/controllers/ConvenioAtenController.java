@@ -1,10 +1,7 @@
-package br.edu.imepac.administrativo.controllers;
+package br.edu.imepac.atendimento.controllers;
 
-import br.edu.imepac.central.dtos.consulta.ConsultaDto;
-import br.edu.imepac.central.dtos.consulta.ConsultaRequest;
 import br.edu.imepac.central.dtos.convenio.ConvenioDto;
 import br.edu.imepac.central.dtos.convenio.ConvenioRequest;
-import br.edu.imepac.central.services.ConsultaService;
 import br.edu.imepac.central.services.ConvenioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,11 +11,11 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/convenios")
-public class ConvenioAdmController {
+public class ConvenioAtenController {
 
         private final ConvenioService convenioService;
 
-        public ConvenioAdmController(ConvenioService convenioService) {
+        public ConvenioAtenController(ConvenioService convenioService) {
             this.convenioService = convenioService;
         }
 
@@ -57,6 +54,3 @@ public class ConvenioAdmController {
             return convenioService.listarConvenio();
         }
     }
-
-
-

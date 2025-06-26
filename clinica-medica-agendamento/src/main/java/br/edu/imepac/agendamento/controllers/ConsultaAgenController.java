@@ -1,4 +1,4 @@
-package br.edu.imepac.administrativo.controllers;
+package br.edu.imepac.agendamento.controllers;
 
 import br.edu.imepac.central.dtos.consulta.ConsultaDto;
 import br.edu.imepac.central.dtos.consulta.ConsultaRequest;
@@ -11,12 +11,12 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/consultas")
-public class ConsultaAdmController {
+public class ConsultaAgenController {
 
 
         private final ConsultaService consultaService;
 
-        public ConsultaAdmController(ConsultaService consultaService) {
+        public ConsultaAgenController(ConsultaService consultaService) {
             this.consultaService = consultaService;
         }
 
@@ -55,5 +55,7 @@ public class ConsultaAdmController {
             return consultaService.listarConsulta();
         }
     }
+
+
 
 
