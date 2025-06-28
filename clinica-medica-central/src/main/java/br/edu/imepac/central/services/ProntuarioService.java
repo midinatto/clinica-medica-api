@@ -53,7 +53,7 @@ public class ProntuarioService {
         return modelMapper.map(prontuario, ProntuarioDto.class);
     }
 
-    public List<ProntuarioDto> listarProntuarios() {
+    public List<ProntuarioDto> listarProntuario() {
         log.info("Listando todos os prontuários");
         List<Prontuario> prontuarios = prontuarioRepository.findAll();
         return prontuarios.stream()

@@ -1,4 +1,4 @@
-package br.edu.imepac.administrativo.controllers;
+package br.edu.imepac.agendamento.controllers;
 
 import br.edu.imepac.central.dtos.funcionario.FuncionarioDto;
 import br.edu.imepac.central.dtos.funcionario.FuncionarioRequest;
@@ -12,10 +12,10 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/funcionarios")
-public class FuncionarioController {
+public class FuncionarioAdmController {
     private final FuncionarioService funcionarioService;
 
-    public FuncionarioController(FuncionarioService funcionarioService) {
+    public FuncionarioAdmController(FuncionarioService funcionarioService) {
         this.funcionarioService = funcionarioService;
     }
 

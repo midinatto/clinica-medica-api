@@ -24,17 +24,41 @@
   <properties>
     <java.version>17</java.version>
     <spring.boot.version>3.1.0</spring.boot.version>
+    <spring-cloud.version>2022.0.4</spring-cloud.version>
+    <sonar.host.url>http://localhost:9000</sonar.host.url>
+    <sonar.login>sqa_3e0f3961e1634064a70bd6218a3eb90fb1ac64a6</sonar.login>
+    <sonar.projectKey>clinica-medica-api</sonar.projectKey>
+    <sonar.projectName>Clínica-Médica-api</sonar.projectName>
+    <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+    <sonar.java.source>17</sonar.java.source>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>jakarta</id>
-      <url>https://jakarta.oss.sonatype.org/content/repositories/releases/</url>
-    </repository>
-  </repositories>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- Dependências do JUnit Jupiter (JUnit 5) para testes unitários -->
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit.jupiter.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
@@ -138,6 +162,10 @@
           <source>17</source>
           <target>17</target> </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>3.11.0.3922</version> </plugin>
       </plugins>
     </pluginManagement>
   </build>
