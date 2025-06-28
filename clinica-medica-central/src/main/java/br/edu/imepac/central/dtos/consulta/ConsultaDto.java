@@ -1,4 +1,4 @@
-package br.edu.imepac.dtos.consulta;
+package br.edu.imepac.central.dtos.consulta;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude.Include.NON_NULL
+@JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class ConsultaDto {
     private long id;

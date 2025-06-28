@@ -1,4 +1,4 @@
-package br.edu.imepac.dtos.consulta;
+package br.edu.imepac.central.dtos.consulta;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
