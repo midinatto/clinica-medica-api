@@ -1,3 +1,4 @@
+Projeto Integrador
 # Clínica Médica API 🏥
 
 Sistema backend modular para gerenciamento de uma clínica médica, desenvolvido em Java com Spring Boot.
@@ -8,3 +9,4 @@ Sistema backend modular para gerenciamento de uma clínica médica, desenvolvido
 - `clinica-medica-atendimento`: Gestão de atendimentos clínicos.
 - `clinica-medica-agendamento`: Agendamentos de consultas e exames.
 - `clinica-medica-central`: Módulo comum, com entidades e utilitários compartilhados.
+
