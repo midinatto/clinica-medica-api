@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: clinica-medica-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: clinica-medica
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 051556
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - clinica-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "user", "-ppassword"]
+      timeout: 20s
+      retries: 10
+      start_period: 30s
+
+
+  clinica-medica-central:
+    build: ./clinica-medica-central
+    container_name: clinica-medica-central-app
+    ports:
+      - "8080:8080"
+    environment:
+
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/clinica-medica?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 051556
+
+      CLINICA_AGENDAMENTO_URL: http://clinica-medica-agendamento:8082
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - clinica-network
+
+
+  clinica-medica-administrativo:
+    build: ./clinica-medica-administrativo
+    container_name: clinica-medica-administrativo-app
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/clinica-medica?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 051556
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - clinica-network
+
+
+  clinica-medica-agendamento:
+    build: ./clinica-medica-agendamento
+    container_name: clinica-medica-agendamento-app
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/clinica-medica?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 051556
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - clinica-network
+
+
+  clinica-medica-atendimento:
+    build: ./clinica-medica-atendimento
+    container_name: clinica-medica-atendimento-app
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/clinica-medica?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 051556
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - clinica-network
+
+
+networks:
+  clinica-network:
+    driver: bridge
+
+
+volumes:
+  db-data:
